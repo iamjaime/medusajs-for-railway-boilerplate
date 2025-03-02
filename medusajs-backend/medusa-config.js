@@ -33,21 +33,23 @@ const DATABASE_URL =
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
-const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME;
-const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
-const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
-const cloudinaryConfigured = CLOUDINARY_CLOUD_NAME && CLOUDINARY_API_KEY && CLOUDINARY_API_SECRET;
+const AWS_S3_BUCKET = process.env.AWS_S3_BUCKET;
+const AWS_S3_REGION = process.env.AWS_S3_REGION;
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const s3Configured = AWS_S3_BUCKET && AWS_S3_REGION && AWS_ACCESS_KEY_ID && AWS_SECRET_ACCESS_KEY;
 
 const ADMIN_APP_PORT = process.env.PORT || 7001;
 
-const fileServicePlugin = cloudinaryConfigured
+const fileServicePlugin = s3Configured
   ? {
-    resolve: `medusa-file-cloudinary`,
+    resolve: `medusa-file-s3`,
     options: {
-      cloud_name: CLOUDINARY_CLOUD_NAME,
-      api_key: CLOUDINARY_API_KEY,
-      api_secret: CLOUDINARY_API_SECRET,
-      secure: true,
+      s3_url: process.env.AWS_S3_URL,
+      bucket: AWS_S3_BUCKET,
+      region: AWS_S3_REGION,
+      access_key_id: AWS_ACCESS_KEY_ID,
+      secret_access_key: AWS_SECRET_ACCESS_KEY,
     },
   }
   : {
