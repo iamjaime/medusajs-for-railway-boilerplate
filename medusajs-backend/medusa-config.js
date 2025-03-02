@@ -50,6 +50,12 @@ const fileServicePlugin = s3Configured
       region: AWS_S3_REGION,
       access_key_id: AWS_ACCESS_KEY_ID,
       secret_access_key: AWS_SECRET_ACCESS_KEY,
+      cache_control: "public, max-age=31536000",
+      download_file_duration: 30,
+      use_acl: false,
+      upload_options: {
+        ACL: undefined
+      }
     },
   }
   : {
