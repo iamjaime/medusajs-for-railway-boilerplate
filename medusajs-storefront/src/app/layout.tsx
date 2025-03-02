@@ -11,6 +11,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" data-mode="light">
       <body>
+        This is a test from me
         <main className="relative">{props.children}</main>
       </body>
     </html>
